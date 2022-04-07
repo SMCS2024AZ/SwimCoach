@@ -8,7 +8,7 @@ const stopwatch = require("./routes/stopwatch")
 app.use("/stopwatch", stopwatch)
 
 app.get("/", (req, res) => {
-  res.send("Hello world")
+  res.render("index")
 })
 
 app.listen(port)
