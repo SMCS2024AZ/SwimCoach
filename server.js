@@ -7,4 +7,8 @@ app.set("view engine", "ejs")
 const stopwatch = require("./routes/stopwatch")
 app.use("/stopwatch", stopwatch)
 
+app.get("/", (req, res) => {
+  res.send("Hello world")
+})
+
 app.listen(port)
