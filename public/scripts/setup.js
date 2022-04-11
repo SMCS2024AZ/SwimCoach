@@ -7,7 +7,7 @@ $(document).ready(function() {
 
   $(".group").click(function() {
     $.ajax({
-      url: "/setup",
+      url: "/stopwatch",
       type: "POST",
       data: JSON.stringify({
         group: $(this).text()
@@ -17,7 +17,7 @@ $(document).ready(function() {
       success: function(data) {
         $(".checklist").empty();
         for (const swimmer of data) {
-          var check = `<div class=\"form-check pt-1\"><label class=\"form-check-label\"><input class=\"form-check-input\" type=\"checkbox\" name=\"swimmer\" value=\"${swimmer.name}\">${swimmer.name}</label></div>`;
+          var check = `<div class=\"form-check pt-1\"><label class=\"form-check-label\"><input class=\"form-check-input\" type=\"checkbox\" name=\"swimmer\" value=\"${swimmer.name},${swimmer.id}\">${swimmer.name}</label></div>`;
           $(".checklist").append(check);
         }
       }
@@ -29,20 +29,22 @@ $(document).ready(function() {
     var race = $(".race.active").text();
     var swimmers = [];
     $("input[name=\"swimmer\"]:checked").each(function() {
-      swimmers.push($(this).val());
+      var values = $(this).val().split(",");
+      swimmers.push({
+        name: values[0],
+        id: parseInt(values[1])
+      });
     });
     $.ajax({
-      url: "/stopwatch",
-      type: "POST",
-      data: JSON.stringify({
-        group: group,
+      url: "/stopwatch/run",
+      type: "GET",
+      data: {
         race: race,
         swimmers: swimmers
-      }),
-      dataType: "json",
-      contentType: "application/json; charset=utf-8",
+      },
+      dataType: "text",
       success: function(data) {
-        alert("here");
+        $("body").html(data);
       }
     });
   })
