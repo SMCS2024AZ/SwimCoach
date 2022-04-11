@@ -7,9 +7,10 @@ $(document).ready(function() {
 
   $(".group").click(function() {
     $.ajax({
-      url: "/stopwatch",
+      url: "/setup",
       type: "POST",
       data: JSON.stringify({
+        func: "chooseGroup",
         group: $(this).text()
       }),
       dataType: 'json',
@@ -20,19 +21,32 @@ $(document).ready(function() {
           var check = `<div class=\"form-check pt-1\"><label class=\"form-check-label\"><input class=\"form-check-input\" type=\"checkbox\" name=\"swimmer\" value=\"${swimmer.name}\">${swimmer.name}</label></div>`;
           $(".checklist").append(check);
         }
-        // TODO: Build checklist based on data received
       }
     });
   });
 
   $(".start").click(function() {
-    // group and race
     var group = $(".group.active").text();
     var race = $(".race.active").text();
-    alert("Group: " + group + "\nRace: " + race);
-    // swimmers
+    var swimmers = [];
     $("input[name=\"swimmer\"]:checked").each(function() {
-      alert($(this).val());
+      swimmers.push($(this).val());
+    });
+    $.ajax({
+      url: "/stopwatch",
+      type: "POST",
+      data: JSON.stringify({
+        func: "start",
+        group: group,
+        race: race,
+        swimmers: swimmers
+      }),
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8'
+    }).done(res => {
+      console.log(res);
+      var body = res.match(/<body>(.*)<\/body>/)[1];
+      $("body").html(body);
     });
   })
 });
