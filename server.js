@@ -9,8 +9,6 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const setup = require("./routes/setup");
-app.use("/setup", setup);
 const stopwatch = require("./routes/stopwatch");
 app.use("/stopwatch", stopwatch);
 

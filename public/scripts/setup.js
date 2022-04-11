@@ -10,11 +10,10 @@ $(document).ready(function() {
       url: "/setup",
       type: "POST",
       data: JSON.stringify({
-        func: "chooseGroup",
         group: $(this).text()
       }),
-      dataType: 'json',
-      contentType: 'application/json; charset=utf-8',
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
       success: function(data) {
         $(".checklist").empty();
         for (const swimmer of data) {
@@ -31,22 +30,6 @@ $(document).ready(function() {
     var swimmers = [];
     $("input[name=\"swimmer\"]:checked").each(function() {
       swimmers.push($(this).val());
-    });
-    $.ajax({
-      url: "/stopwatch",
-      type: "POST",
-      data: JSON.stringify({
-        func: "start",
-        group: group,
-        race: race,
-        swimmers: swimmers
-      }),
-      dataType: 'json',
-      contentType: 'application/json; charset=utf-8'
-    }).done(res => {
-      console.log(res);
-      var body = res.match(/<body>(.*)<\/body>/)[1];
-      $("body").html(body);
     });
   })
 });
