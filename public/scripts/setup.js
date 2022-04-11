@@ -40,9 +40,10 @@ $(document).ready(function() {
         swimmers: swimmers
       }),
       dataType: "json",
-      contentType: "application/json; charset=utf-8"
-    }).done(function(data) {
-      alert(data);
+      contentType: "application/json; charset=utf-8",
+      success: function(data) {
+        alert("here");
+      }
     });
   })
 });
