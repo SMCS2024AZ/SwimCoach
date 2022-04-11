@@ -31,5 +31,18 @@ $(document).ready(function() {
     $("input[name=\"swimmer\"]:checked").each(function() {
       swimmers.push($(this).val());
     });
+    $.ajax({
+      url: "/stopwatch",
+      type: "POST",
+      data: JSON.stringify({
+        group: group,
+        race: race,
+        swimmers: swimmers
+      }),
+      dataType: "json",
+      contentType: "application/json; charset=utf-8"
+    }).done(function(data) {
+      alert(data);
+    });
   })
 });
