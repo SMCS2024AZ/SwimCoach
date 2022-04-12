@@ -36,10 +36,23 @@ router.get("/run", (req, res) => {
 });
 
 router.post("/run", (req, res) => {
+  console.log(req.body.timestamp);
   // Generate query string
+  var todayDate = new Date().toISOString();
   for (const result of req.body.results) {
-    queryString = format("UPDATE swimmers SET %I = %I || '{%s}' WHERE id = %s\n",
+    var queryString = format("UPDATE swimmers SET %I = %I || '{%s}' WHERE id = %s\n",
     req.body.race, req.body.race, result.time, result.id);
+    db.query(queryString,
+    [],
+    (err, result) => {
+      if (err) {
+        return err;
+      }
+    });
+
+    var timestampCol = req.body.race + "_timestamps";
+    queryString = format("UPDATE swimmers SET %I = %I || '{%s}' WHERE id = %s\n",
+    timestampCol, timestampCol, req.body.timestamp, result.id);
     db.query(queryString,
     [],
     (err, result) => {

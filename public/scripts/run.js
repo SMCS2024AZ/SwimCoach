@@ -34,7 +34,8 @@ $(document).ready(function() {
       type: "POST",
       data: JSON.stringify({
         results: results,
-        race: $(".race").val().replace(" ", "").toLowerCase()
+        race: $(".race").val().replace(" ", "").toLowerCase(),
+        timestamp: moment().format()
       }),
       dataType: "json",
       contentType: "application/json; charset=utf-8",
