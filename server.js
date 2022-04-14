@@ -11,6 +11,8 @@ app.use(bodyParser.json());
 
 const stopwatch = require("./routes/stopwatch");
 app.use("/stopwatch", stopwatch);
+const statviewer = require("./routes/statviewer");
+app.use("/statviewer", statviewer);
 
 app.get("/", (req, res) => {
   res.render("index");

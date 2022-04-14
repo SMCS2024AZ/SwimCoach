@@ -36,7 +36,6 @@ router.get("/run", (req, res) => {
 });
 
 router.post("/run", (req, res) => {
-  console.log(req.body.timestamp);
   // Generate query string
   var todayDate = new Date().toISOString();
   for (const result of req.body.results) {

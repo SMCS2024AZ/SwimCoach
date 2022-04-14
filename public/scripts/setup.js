@@ -17,7 +17,7 @@ $(document).ready(function() {
       success: function(data) {
         $(".checklist").empty();
         for (const swimmer of data) {
-          var check = `<div class=\"form-check pt-1\"><label class=\"form-check-label\"><input class=\"form-check-input\" type=\"checkbox\" name=\"swimmer\" value=\"${swimmer.name},${swimmer.id}\">${swimmer.name}</label></div>`;
+          var check = `<div class="form-check pt-1"><label class="form-check-label"><input class="form-check-input" type="checkbox" name="swimmer" value="${swimmer.name},${swimmer.id}"\>${swimmer.name}</label></div>`;
           $(".checklist").append(check);
         }
       }
