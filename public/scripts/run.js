@@ -27,7 +27,6 @@ $(document).ready(function() {
     }
   });
 
-  // TODO: upload to database
   $(".done").click(function() {
     $.ajax({
       url: "/stopwatch/run",
