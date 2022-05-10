@@ -6,7 +6,6 @@ const client = new Client({
 });
 
 /*-----Only for local-----
-
 const client = new Client({
     connectionString: process.env.LOCAL_DB,
     ssl: false
