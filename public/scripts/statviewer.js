@@ -1,4 +1,13 @@
+function parseISOString(s) {
+  var b = s.split(/\D+/);
+  return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+}
+
+function 
+
 $(document).ready(function() {
+  // { x: parseISOString("2022-04-13 18:38:13-04"), y: 30 }
+
   // Canvas.js code
   var options = {
     animationEnabled: true,
@@ -6,7 +15,7 @@ $(document).ready(function() {
     axisX: {
       intervalType: "day",
       interval: 1,
-      valueFormatString: "DD MMM YYYY"
+      valueFormatString: "DD MMM YYYY",
     },
     axisY: {
       title: "Time",
@@ -24,19 +33,72 @@ $(document).ready(function() {
       type: "line",
       showInLegend: true,
       name: "Freestyle 25m",
-      color: "#F08080",
+      color: "#ff6961",
       yValueFormatString: "#,##0s",
       dataPoints: [
-        { x: new Date(2022, 4, 19), y: 30 },
       ]
     },
     {
       type: "line",
       showInLegend: true,
       name: "Freestyle 50m",
+      color: "#ffb480",
       yValueFormatString: "#,##0s",
       dataPoints: [
-        { x: new Date(2022, 4, 19), y: 60 },
+      ]
+    },
+    {
+      type: "line",
+      showInLegend: true,
+      name: "Backstroke 25m",
+      color: "#f8f38d",
+      yValueFormatString: "#,##0s",
+      dataPoints: [
+      ]
+    },
+    {
+      type: "line",
+      showInLegend: true,
+      name: "Backstroke 50m",
+      color: "#42d6a4",
+      yValueFormatString: "#,##0s",
+      dataPoints: [
+      ]
+    },
+    {
+      type: "line",
+      showInLegend: true,
+      name: "Breaststroke 25m",
+      color: "#08cad1",
+      yValueFormatString: "#,##0s",
+      dataPoints: [
+      ]
+    },
+    {
+      type: "line",
+      showInLegend: true,
+      name: "Breaststroke 50m",
+      color: "#59adf6",
+      yValueFormatString: "#,##0s",
+      dataPoints: [
+      ]
+    },
+    {
+      type: "line",
+      showInLegend: true,
+      name: "Butterfly 25m",
+      color: "#9d94ff",
+      yValueFormatString: "#,##0s",
+      dataPoints: [
+      ]
+    },
+    {
+      type: "line",
+      showInLegend: true,
+      name: "Butterfly 50m",
+      color: "#c780e8",
+      yValueFormatString: "#,##0s",
+      dataPoints: [
       ]
     }]
   };
@@ -81,9 +143,5 @@ $(document).ready(function() {
         });
       }
     });
-  });
-
-  $(".swimmer").click(function() {
-    console.log("swimmer name")
   });
 });
