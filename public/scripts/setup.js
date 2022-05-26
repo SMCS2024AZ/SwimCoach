@@ -30,11 +30,12 @@ $(document).ready(function() {
 
   $(".stroke").click(function() {
     if ($(this).text() == "Individual Medley") {
-      $(".normal").addClass("disabled");
-      $(".im").addClass("active");
+      $(".normal").removeClass("active").addClass("disabled");
+      $(".im").removeClass("disabled").addClass("active");
     } else {
       $(".normal").removeClass("disabled");
-      $(".im").removeClass("active");
+      $("#default").addClass("active");
+      $(".im").removeClass("active").addClass("disabled");
     }
   });
 
