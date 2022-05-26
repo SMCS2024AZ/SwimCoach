@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../db");
 
 router.get("/", (req, res) => {
-  db.query("SELECT * FROM swimmers WHERE age_group = '15 and over'",
+  db.query("SELECT * FROM swimmers WHERE age_group = '10 and under'",
   [],
   (err, result) => {
     res.render("statviewer", { swimmers: result.rows });

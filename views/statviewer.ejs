@@ -32,28 +32,24 @@
             Swimmer Name
           </button>
           <ul class="dropdown-menu swimmers">
+            <% if (swimmers.length == 0) { %>
+              <li><a class="dropdown-item disabled">No swimmers</a></li>
+            <% } else { %>
             <% swimmers.forEach(function(swimmer, i) { %>
-              <% if (i == 0) { %>
-                <li><a class="dropdown-item group active swimmer" value="<%= swimmer.name + ',' + swimmer.id %>"><%= swimmer.name %></a></li>
-              <% } else { %>
-                <li><a class="dropdown-item group swimmer" value="<%= swimmer.name + ',' + swimmer.id %>"><%= swimmer.name %></a></li>
-              <% } %>
-            <% }) %>
+              <li><a class="dropdown-item group swimmer" value="<%= swimmer.name + ',' + swimmer.id %>"><%= swimmer.name %></a></li>
+            <% })} %>
           </ul>
         </div>
       </div>
-    </div>
 
-    <div class="d-flex justify-content-center pt-3">
-      <div id="chartContainer" style="height: 370px; width: 50%;"></div>
+      <canvas id="myChart" width="400" height="400"></canvas>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
-  <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-  <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
   <script src="scripts/statviewer.js"></script>
 </body>
 
