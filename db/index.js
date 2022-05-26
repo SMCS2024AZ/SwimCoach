@@ -1,16 +1,17 @@
 const { Client } = require("pg");
 
+/*-----Only for prod-----
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false }
 });
+*/
 
-/*-----Only for local-----
 const client = new Client({
     connectionString: process.env.LOCAL_DB,
     ssl: false
 });
-*/
+
 
 client.connect();
 
