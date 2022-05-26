@@ -40,7 +40,6 @@ $(document).ready(function() {
 
   $(".start").click(function() {
     var race = $(".stroke.active").text() + $(".distance.active").text();
-    console.log(race);
     var swimmers = [];
     $("input[name=\"swimmer\"]:checked").each(function() {
       var values = $(this).val().split(",");

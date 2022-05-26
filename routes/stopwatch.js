@@ -38,7 +38,8 @@ router.get("/run", (req, res) => {
 router.post("/run", (req, res) => {
   // Generate query string
   var todayDate = new Date().toISOString();
-  for (const result of req.body.results) {
+  swimmerResults = req.body.results;
+  swimmerResults.forEach((result) => {
     var queryString = format("UPDATE swimmers SET %I = %I || '{%s}' WHERE id = %s\n",
     req.body.race, req.body.race, result.time, result.id);
     db.query(queryString,
@@ -59,8 +60,8 @@ router.post("/run", (req, res) => {
         return err;
       }
     });
-    return res.send({ });
-  }
+  });
+  return res.send({ });
 });
 
 module.exports = router;
