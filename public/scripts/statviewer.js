@@ -63,8 +63,8 @@ $(document).ready(function() {
       contentType: "application/json; charset=utf-8",
       success: function(data) {
         // setup category arrays
-        var raceTypes = Object.entries(data).slice(3, 12);
-        var timestampTypes = Object.entries(data).slice(12);
+        var raceTypes = Object.entries(data).slice(5, 14);
+        var timestampTypes = Object.entries(data).slice(14);
 
         // names and colors for each line
         var names = ["Freestyle 25", "Freestyle 50", "Backstroke 25", "Backstroke 50",
