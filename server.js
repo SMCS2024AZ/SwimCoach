@@ -13,6 +13,8 @@ const stopwatch = require("./routes/stopwatch");
 app.use("/stopwatch", stopwatch);
 const statviewer = require("./routes/statviewer");
 app.use("/statviewer", statviewer);
+const teammanager = require("./routes/teammanager");
+app.use("/teammanager", teammanager);
 
 app.get("/", (req, res) => {
   res.render("index");

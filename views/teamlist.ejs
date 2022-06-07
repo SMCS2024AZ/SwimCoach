@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stopwatch</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="d-flex justify-content-center vh-100" style="flex-direction: column">
+    <div class="text-center">
+      <h1>Team Manager</h1>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center">
+      <input type="text" class="form-control" id="searchbar" style="width: 16%;" placeholder="Search name...">
+    </div>
+
+
+    <div class="d-flex justify-content-center align-items-center pt-3">
+      <div class="dropdown px-1">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+          Age Group
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item active group">All age groups</a></li>
+          <li><a class="dropdown-item group">10 and under</a></li>
+          <li><a class="dropdown-item group">11 - 12 years</a></li>
+          <li><a class="dropdown-item group">13 - 14 years</a></li>
+          <li><a class="dropdown-item group">15 and over</a></li>
+        </ul>
+      </div>
+
+      <div class="dropdown px-1">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+          Genders
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item active gender">All genders</a></li>
+          <li><a class="dropdown-item gender">Male</a></li>
+          <li><a class="dropdown-item gender">Female</a></li>
+          <li><a class="dropdown-item gender">Other</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container d-flex justify-content-center pt-3">
+      <table class="table table-responsive" style="width: auto;">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Age</th>
+            </tr>
+          </thead>
+          <tbody>
+              <% swimmers.forEach(function(swimmer, i) { %>
+                <tr>
+                  <input type="hidden" class="swimmerID" value="<%= swimmer.id %>">
+                  <td class="align-middle"><%= swimmer.name %></td>
+                  <td class="align-middle"><%= swimmer.gender.charAt(0).toUpperCase() + swimmer.gender.slice(1); %></td>
+                  <td class="align-middle"><%= swimmer.age %></td>
+                </tr>
+              <% }) %>
+          </tbody>
+        </table>
+    </div>
+
+    <div class="container d-flex justify-content-center pt-1">
+      <button class="btn btn-primary" id="add">Add swimmers</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="scripts/manager.js"></script>
+</body>
+
+</html>
