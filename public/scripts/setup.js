@@ -1,10 +1,12 @@
 $(document).ready(function() {
+  // change active dropdown
   $(".dropdown-item").click(function() {
     var type = $(this).attr("class").replace("dropdown-item ", "");
     $(".active." + type.replace(" normal", "")).attr("class", "dropdown-item " + type);
     $(this).attr("class", "dropdown-item active " + type);
   });
 
+  // update checklist based on age group
   $(".group").click(function() {
     $.ajax({
       url: "/stopwatch",
@@ -28,6 +30,7 @@ $(document).ready(function() {
     });
   });
 
+  // make sure times are correct for each race type
   $(".stroke").click(function() {
     if ($(this).text() == "Individual Medley") {
       $(".normal").removeClass("active").addClass("disabled");
@@ -39,6 +42,7 @@ $(document).ready(function() {
     }
   });
 
+  // send race type and swimmers to server
   $(".start").click(function() {
     var race = $(".stroke.active").text() + $(".distance.active").text();
     var swimmers = [];

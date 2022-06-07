@@ -27,6 +27,7 @@ $(document).ready(function() {
     }
   });
 
+  // send results
   $(".done").click(function() {
     $.ajax({
       url: "/stopwatch/run",

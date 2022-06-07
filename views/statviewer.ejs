@@ -36,20 +36,26 @@
               <li><a class="dropdown-item disabled">No swimmers</a></li>
             <% } else { %>
             <% swimmers.forEach(function(swimmer, i) { %>
-              <li><a class="dropdown-item group swimmer" value="<%= swimmer.name + ',' + swimmer.id %>"><%= swimmer.name %></a></li>
+              <li><a class="dropdown-item swimmer" value="<%= swimmer.name + ',' + swimmer.id %>"><%= swimmer.name %></a></li>
             <% })} %>
           </ul>
         </div>
       </div>
 
-      <canvas id="myChart" width="400" height="400"></canvas>
+      <div class="d-flex justify-content-center align-items-center pt-4">
+        <div style="height:350px; width:50%;">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@^3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
   <script src="scripts/statviewer.js"></script>
 </body>
 
