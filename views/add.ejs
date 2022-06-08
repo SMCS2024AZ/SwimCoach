@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google" content="notranslate">
+  <title>Stopwatch</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="d-flex justify-content-center vh-100" style="flex-direction: column">
+    <div class="text-center">
+      <h1>Team Manager</h1>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center">
+      <form action="javascript:void(0);" class="swimmerAdd card p-3 bg-light">
+        <label><strong>Add Swimmer</strong></label>
+
+        <div class="form-group pt-2">
+          <label for="swimmerName">Name</label>
+          <input type="text" class="form-control" id="swimmerName" style="width: 18em;" placeholder="Enter name...">
+        </div>
+
+        <div class="form-group pt-2">
+          <label>Gender</label>
+          <div class="dropdown px-1">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              Gender
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item active gender">Male</a></li>
+              <li><a class="dropdown-item gender">Female</a></li>
+              <li><a class="dropdown-item gender">Other</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="form-group pt-2">
+          <label for="swimmerAge">Age</label>
+          <input type="text" class="form-control" id="swimmerAge" style="width: 7em;" placeholder="Enter age...">
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="btn btn-primary">Add swimmer</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="container d-flex justify-content-center pt-3">
+      <a href="/teammanager/" class="btn btn-primary">Done</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="/scripts/add.js"></script>
+</body>
+
+</html>

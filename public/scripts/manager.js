@@ -123,9 +123,4 @@ $(document).ready(function() {
       }
     });
   });
-
-  // add new
-  $("#add").click(function() {
-    alert("todo");
-  });
 });
