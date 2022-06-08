@@ -15,7 +15,7 @@ $(document).ready(function() {
     var timeElem = $(this).closest("td").prev();
     timeElem.attr("class", "align-middle stopped");
     results.push({
-      id: timeElem.closest("td").prev().prev().val(),
+      id: timeElem.closest("td").prevAll("input").val(),
       time: timeElem.text()
     })
     $(this).prop("disabled", true);

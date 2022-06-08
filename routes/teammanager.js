@@ -15,30 +15,14 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/group", (req, res) => {
-  var group = (req.query.group == "all age groups") ? ["10 and under", "11 - 12 years",
-  "13 - 14 years", "15 and over"] : [req.query.group];
-  var gender = (req.query.gender == "all genders") ? ["male", "female"] : [req.query.gender];
-  var queryString = format("SELECT * FROM swimmers WHERE (age_group IN (%L) AND gender IN (%L))", group, gender);
-  db.query(queryString,
-  [],
+router.delete("/del", (req, res) => {
+  db.query("DELETE FROM swimmers WHERE id = $1",
+  [req.body.id],
   (err, result) => {
     if (err) {
       return err;
     }
-    res.send(result.rows);
-  });
-});
-
-router.get("/search", (req, res) => {
-  var searchTerm = "%" + req.query.term + "%";
-  db.query("SELECT * FROM swimmers WHERE LOWER(name) like LOWER($1)",
-  [searchTerm],
-  (err, result) => {
-    if (err) {
-      return err;
-    }
-    res.send(result.rows);
+    res.send({ });
   });
 });
 

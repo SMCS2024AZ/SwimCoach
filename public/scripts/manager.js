@@ -1,59 +1,61 @@
 $(document).ready(function() {
-  $(document).on("click", ".dropdown-item", function(){
+  var swimmerTable = $("#swimmerTable").DataTable({
+    info: false,
+    lengthChange: false,
+    ordering: false,
+    pageLength: 8,
+    columnDefs: [
+      {
+        target: 3,
+        visible: false
+      }
+    ],
+    initComplete: function() {
+      var api = this.api();
+      $("#swimmerTable").show();
+      api.columns.adjust();
+    }
+  });
+
+  $(".dataTables_filter").css("display", "none");
+
+  $(document).on("click", ".dropdown-item", function() {
     var type = $(this).attr("class").replace("dropdown-item ", "");
     $(".active." + type).attr("class", "dropdown-item " + type);
     $(this).attr("class", "dropdown-item active " + type);
 
-    $.ajax({
-      url: "/teammanager/group",
-      type: "GET",
-      data: {
-        group: $(".active.group").text().toLowerCase(),
-        gender: $(".active.gender").text().toLowerCase()
-      },
-      dataType: "json",
-      contentType: "application/json; charset=utf-8",
-      success: function(data) {
-        $("tbody").empty();
-        if (data.length == 0) {
-          $("tbody").append("<tr><td class=\"align-middle\" colspan=\"4\">No swimmers found</td></tr>");
-        } else {
-          data.forEach(function(swimmer) {
-            $("tbody").append(`<tr>
-              <input type="hidden" class="swimmerID" value="${swimmer.id}">
-              <td class="align-middle">${swimmer.name}</td>
-              <td class="align-middle">${swimmer.gender.charAt(0).toUpperCase() + swimmer.gender.slice(1)}</td>
-              <td class="align-middle">${swimmer.age}</td></tr>`)
-          });
-        }
-      }
-    });
+    var group = $(".active.group").text();
+    group = (group == "All age groups") ? "" : group;
+    var gender = $(".active.gender").text();
+    gender = (gender == "All genders") ? "" : "^" + gender + "$";
+    swimmerTable.column(1).search(gender, true, false, true).column(3).search(group).draw();
   });
 
   $("#searchbar").on("input", function() {
-    $.ajax({
-      url: "/teammanager/search",
-      type: "GET",
-      data: {
-        term: $(this).val()
-      },
-      dataType: "json",
-      contentType: "application/json; charset=utf-8",
-      success: function(data) {
-        $("tbody").empty();
-        if (data.length == 0) {
-          $("tbody").append("<tr><td class=\"align-middle\" colspan=\"4\">No swimmers found</td></tr>");
-        } else {
-          data.forEach(function(swimmer) {
-            $("tbody").append(`<tr>
-              <input type="hidden" class="swimmerID" value="${swimmer.id}">
-              <td class="align-middle">${swimmer.name}</td>
-              <td class="align-middle">${swimmer.gender.charAt(0).toUpperCase() + swimmer.gender.slice(1)}</td>
-              <td class="align-middle">${swimmer.age}</td></tr>`)
-          });
+    swimmerTable.column(0).search($(this).val()).draw();
+  });
+
+  $(document).on("click", ".del", function() {
+    var check = confirm("Are you sure you would like to delete this swimmer?");
+    var currRow = $(this).closest("tr");
+    if (check) {
+      $.ajax({
+        url: "/teammanager/del",
+        type: "DELETE",
+        data: JSON.stringify({
+          id: parseInt($(this).closest("td").prevAll("input").val())
+        }),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function(data) {
+          swimmerTable.row(currRow).remove().draw();
         }
-      }
-    });
+      });
+    }
+  });
+
+  $(document).on("click", ".edit", function() {
+    console.log("here");
   });
 
   $("#add").click(function() {
