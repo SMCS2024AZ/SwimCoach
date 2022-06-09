@@ -22,7 +22,7 @@ $(document).ready(function() {
           $(".checklist").append(`<div class="form-check pt-1"><label class="form-check-label text-muted" disabled><input class="form-check-input" type="checkbox" disabled\>No swimmers</label></div>`);
         } else {
           for (const swimmer of data) {
-            var check = `<div class="form-check pt-1"><label class="form-check-label"><input class="form-check-input" type="checkbox" name="swimmer" value="${swimmer.name},${swimmer.id}"\>${swimmer.name}</label></div>`;
+            var check = `<div class="form-check pt-1"><label class="form-check-label swimmer"><input class="form-check-input" type="checkbox" name="swimmer" value="${swimmer.name},${swimmer.id}"\>${swimmer.name}</label></div>`;
             $(".checklist").append(check);
           }
         }
@@ -39,6 +39,17 @@ $(document).ready(function() {
       $(".normal").removeClass("disabled");
       $("#default").addClass("active");
       $(".im").removeClass("active").addClass("disabled");
+    }
+  });
+
+  // manage start availability
+  $(document).on("change", ".swimmer", function() {
+    if ($("input[name=\"swimmer\"]:checked").length > 0) {
+      $(".start").attr("class", "btn btn-primary mt-3 start");
+      $(".start").prop("disabled", false);
+    } else {
+      $(".start").attr("class", "btn btn-secondary mt-3 start");
+      $(".start").prop("disabled", true);
     }
   });
 

@@ -17,41 +17,73 @@
       <h1>Team Manager</h1>
     </div>
 
-    <div class="d-flex justify-content-center align-items-center">
-      <form action="javascript:void(0);" class="swimmerAdd card p-3 bg-light">
-        <label><strong>Add Swimmer</strong></label>
+    <div class="container" style="width: 22em;">
+      <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="individual-tab" data-bs-toggle="tab" data-bs-target="#individual" type="button" role="tab" aria-controls="individual" aria-selected="true">Individual</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="fromcsv-tab" data-bs-toggle="tab" data-bs-target="#fromcsv" type="button" role="tab" aria-controls="fromcsv" aria-selected="false">From CSV</button>
+        </li>
+      </ul>
 
-        <div class="form-group pt-2">
-          <label for="swimmerName">Name</label>
-          <input type="text" class="form-control" id="swimmerName" style="width: 18em;" placeholder="Enter name...">
+      <div class="tab-content d-flex justify-content-center align-items-center pt-2 pb-4" id="myTabContent" style="border: 1px solid #ddd; border-width: 0 1px 1px;">
+        <div class="tab-pane show active" id="individual" role="tabpanel" aria-labelledby="individual-tab">
+          <form action="javascript:void(0);" class="swimmerAdd">
+            <div class="form-group pt-2">
+              <label for="swimmerName">Name</label>
+              <input type="text" class="form-control" id="swimmerName" style="width: 18em;" placeholder="Enter name...">
+            </div>
+
+            <div class="form-group pt-2">
+              <label>Gender</label>
+              <div class="dropdown px-1">
+                <button type="button" class="btn btn-primary dropdown-toggle selectedGender" data-bs-toggle="dropdown">
+                  Male
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item active gender">Male</a></li>
+                  <li><a class="dropdown-item gender">Female</a></li>
+                  <li><a class="dropdown-item gender">Other</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="form-group pt-2">
+              <label for="swimmerAge">Age</label>
+              <input type="text" class="form-control" id="swimmerAge" style="width: 7em;" placeholder="Enter age...">
+            </div>
+
+            <div class="pt-2">
+              <button type="submit" class="btn btn-primary">Add swimmer</button>
+            </div>
+          </form>
         </div>
 
-        <div class="form-group pt-2">
-          <label>Gender</label>
-          <div class="dropdown px-1">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-              Gender
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item active gender">Male</a></li>
-              <li><a class="dropdown-item gender">Female</a></li>
-              <li><a class="dropdown-item gender">Other</a></li>
-            </ul>
-          </div>
-        </div>
+        <div class="tab-pane" id="fromcsv" role="tabpanel" aria-labelledby="fromcsv-tab">
+          <form action="javascript:void(0);" class="csvAdd">
+            <div class="input-group pt-2">
+              <label class="input-group-text btn btn-primary">
+                Browse
+                <input type="file" class="upload" style="display: none;">
+              </label>
+              <label class="form-control filename px-2">Choose file</label>
+            </div>
 
-        <div class="form-group pt-2">
-          <label for="swimmerAge">Age</label>
-          <input type="text" class="form-control" id="swimmerAge" style="width: 7em;" placeholder="Enter age...">
-        </div>
+            <div class="form-group pt-2">
+              <label for="csvText">Text</label>
+              <textarea class="form-control" id="csvText" style="resize: none; width: 18em" rows="5"></textarea>
+            </div>
 
-        <div class="pt-2">
-          <button type="submit" class="btn btn-primary">Add swimmer</button>
+            <div class="pt-2">
+              <button type="submit" class="btn btn-primary">Add swimmer</button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
 
-    <div class="container d-flex justify-content-center pt-3">
+    <div class="container d-flex justify-content-center pt-4">
       <a href="/teammanager/" class="btn btn-primary">Done</a>
     </div>
   </div>

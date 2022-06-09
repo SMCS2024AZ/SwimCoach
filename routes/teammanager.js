@@ -56,7 +56,7 @@ router.get("/add", (req, res) => {
   res.render("add");
 });
 
-router.post("/add", (req, res) => {
+router.post("/individualAdd", (req, res) => {
   db.query("INSERT INTO swimmers (name, gender, age, age_group) VALUES ($1, $2, $3, $4)",
   [req.body.name, req.body.gender, req.body.age, getAgeGroup(req.body.age)],
   (err, result) => {
@@ -65,6 +65,19 @@ router.post("/add", (req, res) => {
     }
     res.send({ });
   });
+});
+
+router.post("/csvAdd", (req, res) => {
+  req.body.swimmers.forEach(function(swimmer) {
+    db.query("INSERT INTO swimmers (name, gender, age, age_group) VALUES ($1, $2, $3, $4)",
+    [swimmer.name, swimmer.gender, swimmer.age, getAgeGroup(swimmer.age)],
+    (err, result) => {
+      if (err) {
+        return err;
+      }
+    });
+  });
+  res.send({ });
 });
 
 module.exports = router;
