@@ -10,7 +10,7 @@
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Time</th>
-            <th scope="col">Stop</th>
+            <th scope="col">Start/Stop</th>
           </tr>
         </thead>
         <tbody>
@@ -18,8 +18,11 @@
             <tr>
               <input type="hidden" class="swimmerID" value="<%= swimmer.id %>">
               <td class="align-middle"><%= swimmer.name %></td>
-              <td class="align-middle timer">0.00</td>
-              <td class="align-middle"><button class="btn btn-primary stop">Stop</button></td>
+              <td class="align-middle timer stopped">0.00</td>
+              <td class="align-middle">
+                <button class="btn btn-primary start">Start</button>
+                <button class="btn btn-primary stop">Stop</button>
+              </td>
             </tr>
           <% }) %>
         </tbody>

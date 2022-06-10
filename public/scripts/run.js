@@ -4,11 +4,18 @@ var results = [];
 $(document).ready(function() {
   // update stopwatches
   var interval = setInterval(function() {
-    var elapsed = Date.now() - start;
-    $(".timer").each(function() {
+    $(".timer.enabled").each(function() {
+      var elapsed = Date.now() - $(this).attr("value");
       $(this).text((elapsed / 1000).toFixed(2));
     });
   }, 10);
+
+  $(".start").click(function() {
+    var timeElem = $(this).closest("td").prev();
+    timeElem.attr("class", "align-middle timer enabled");
+    timeElem.attr("value", Date.now());
+    $(this).prop("disabled", true);
+  });
 
   // handle stopping
   $(".stop").click(function() {
@@ -17,7 +24,7 @@ $(document).ready(function() {
     results.push({
       id: timeElem.closest("td").prevAll("input").val(),
       time: timeElem.text()
-    })
+    });
     $(this).prop("disabled", true);
 
     // enabled done button if all watches are stopped
