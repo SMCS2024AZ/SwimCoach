@@ -34,7 +34,6 @@ router.post("/", (req, res) => {
       });
       break;
     case 3:
-      console.log(req.body)
       var queryString = "";
       if (req.body.index == 1) {
         queryString = format("UPDATE swimmers SET %I = %I[%s:] WHERE id = %s",

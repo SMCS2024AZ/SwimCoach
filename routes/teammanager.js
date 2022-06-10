@@ -16,6 +16,18 @@ function getAgeGroup(age) {
   }
 }
 
+function csvValidate(data) {
+  var res = true;
+  data.forEach(function(swimmer) {
+    if (swimmer.name.length == 0 ||
+      !["Male", "Female", "Other"].includes(swimmer.gender) ||
+      !Number.isInteger(swimmer.age)) {
+      res = false;
+    }
+  });
+  return res;
+}
+
 router.get("/", (req, res) => {
   db.query("SELECT * FROM swimmers",
   [],
@@ -39,17 +51,30 @@ router.delete("/del", (req, res) => {
 });
 
 router.post("/edit", (req, res) => {
-  // TODO: validation
-  var age_group = getAgeGroup(req.body.age);
+  var errors = [];
 
-  db.query("UPDATE swimmers SET name = $1, gender = $2, age = $3, age_group = $4 WHERE id = $5",
-  [req.body.name, req.body.gender, req.body.age, age_group, req.body.id],
-  (err, result) => {
-    if (err) {
-      return err;
-    }
-    res.send({ });
-  });
+  if (req.body.name.length == 0) {
+    valid = false;
+    errors.push("Invalid name.");
+  }
+
+  if (!Number.isInteger(req.body.age)) {
+    errors.push("Invalid age.");
+  }
+
+  if (errors.length == 0) {
+    var age_group = getAgeGroup(req.body.age);
+    db.query("UPDATE swimmers SET name = $1, gender = $2, age = $3, age_group = $4 WHERE id = $5",
+    [req.body.name, req.body.gender, req.body.age, age_group, req.body.id],
+    (err, result) => {
+      if (err) {
+        return err;
+      }
+      res.send({ });
+    });
+  } else {
+    res.send( { errs: errors } )
+  }
 });
 
 router.get("/add", (req, res) => {
@@ -57,27 +82,46 @@ router.get("/add", (req, res) => {
 });
 
 router.post("/individualAdd", (req, res) => {
-  db.query("INSERT INTO swimmers (name, gender, age, age_group) VALUES ($1, $2, $3, $4)",
-  [req.body.name, req.body.gender, req.body.age, getAgeGroup(req.body.age)],
-  (err, result) => {
-    if (err) {
-      return err;
-    }
-    res.send({ });
-  });
-});
+  var errors = [];
 
-router.post("/csvAdd", (req, res) => {
-  req.body.swimmers.forEach(function(swimmer) {
+  if (req.body.name.length == 0) {
+    valid = false;
+    errors.push("Invalid name.");
+  }
+
+  if (!Number.isInteger(req.body.age)) {
+    errors.push("Invalid age.");
+  }
+
+  if (errors.length == 0) {
     db.query("INSERT INTO swimmers (name, gender, age, age_group) VALUES ($1, $2, $3, $4)",
-    [swimmer.name, swimmer.gender, swimmer.age, getAgeGroup(swimmer.age)],
+    [req.body.name, req.body.gender, req.body.age, getAgeGroup(req.body.age)],
     (err, result) => {
       if (err) {
         return err;
       }
+      res.send({ });
     });
-  });
-  res.send({ });
+  } else {
+    res.send({ errs: errors });
+  }
+});
+
+router.post("/csvAdd", (req, res) => {
+  if (csvValidate(req.body.swimmers)) {
+    req.body.swimmers.forEach(function(swimmer) {
+      db.query("INSERT INTO swimmers (name, gender, age, age_group) VALUES ($1, $2, $3, $4)",
+      [swimmer.name, swimmer.gender, swimmer.age, getAgeGroup(swimmer.age)],
+      (err, result) => {
+        if (err) {
+          return err;
+        }
+      });
+    });
+    res.send({ });
+  } else {
+    res.send({ errs: ["Invalid input"] });
+  }
 });
 
 module.exports = router;

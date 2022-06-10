@@ -109,8 +109,7 @@ $(document).ready(function() {
   });
 
   $(document).on("click", ".confirm", function() {
-    $(this).html("<span class=\"fa fa-edit\"></span>").removeClass("confirm").addClass("edit");
-    $(this).next().html("<span class=\"fa fa-trash\"></span>").removeClass("cancel").addClass("del");
+    var button = $(this);
     var curr = $(this).closest("tr");
 
     $.ajax({
@@ -118,28 +117,36 @@ $(document).ready(function() {
       type: "POST",
       data: JSON.stringify({
         name: $(this).closest("td").prevAll().eq(2).children().eq(1).val(),
-        gender: $(this).closest("td").prevAll().eq(1).children().eq(0).children().eq(0).text(),
+        gender: $(this).closest("td").prevAll().eq(1).children().eq(0).children().eq(0).text().trim(),
         age: parseInt($(this).closest("td").prevAll().eq(0).children().eq(1).val()),
         id: parseInt($(this).closest("td").prevAll("input").val())
       }),
       dataType: "json",
       contentType: "application/json; charset=utf-8",
       success: function(data) {
+        if (data.errs != null) {
+          $(".errors-container").css("display", "block");
+          $(".errors").text(data.errs.join(" "));
+        } else {
           curr.children("td").each(function(index) {
-          if (index < 3) {
-            var content = "";
-            if (index == 1) {
-              content = $(this).children().eq(0).children().eq(0).text();
-            } else {
-              content = $(this).first().children("input").eq(1).val();
+            if (index < 3) {
+              var content = "";
+              if (index == 1) {
+                content = $(this).children().eq(0).children().eq(0).text();
+              } else {
+                content = $(this).first().children("input").eq(1).val();
+              }
+              $(this).html(content);
+              $(this).css("width", "auto");
+              swimmerTable.cell(this).data(content);
+              updateSelections();
+              updateSearch();
+              button.html("<span class=\"fa fa-edit\"></span>").removeClass("confirm").addClass("edit");
+              button.next().html("<span class=\"fa fa-trash\"></span>").removeClass("cancel").addClass("del");
+              $(".errors-container").css("display", "none");
             }
-            $(this).html(content);
-            $(this).css("width", "auto");
-            swimmerTable.cell(this).data(content);
-            updateSelections();
-            updateSearch();
-          }
-        });
+          });
+        }
       }
     });
   });

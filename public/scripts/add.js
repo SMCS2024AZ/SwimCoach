@@ -6,9 +6,9 @@ function csvToArray(str) {
     var data = row.split(",");
     var swimmer = {};
     data.forEach(function(item, index) {
-      if (item == "") {
+      if (index == 1 && item == "") {
         swimmer[headers[index]] = "Other";
-      } else {
+      } else if (index <= 2) {
         swimmer[headers[index]] = item.trim().replace("\r", "");
         if (headers[index] == "age") {
           swimmer["age"] = parseInt(swimmer["age"]);
@@ -69,7 +69,15 @@ $(document).ready(function() {
       dataType: "json",
       contentType: "application/json; charset=utf-8",
       success: function(data) {
-        alert($("#swimmerName").val() + " successfully added!");
+        if (data.errs != null) {
+          $(".messages-container").css("display", "block");
+          $(".messages-container").css("color", "#d9534f");
+          $(".messages").text(data.errs.join(" "));
+        } else {
+          $(".messages-container").css("display", "block");
+          $(".messages-container").css("color", "#5cb85c");
+          $(".messages").text("Successfully added " + $("#swimmerName").val() + ".");
+        }
       }
     });
   });
@@ -80,12 +88,20 @@ $(document).ready(function() {
       url: "/teammanager/csvAdd",
       type: "POST",
       data: JSON.stringify({
-        swimmers: csvToArray($("#csvText").text().trim())
+        swimmers: csvToArray($("#csvText").val().trim())
       }),
       dataType: "json",
       contentType: "application/json; charset=utf-8",
       success: function(data) {
-        alert("Swimmers successfully added!");
+        if (data.errs != null) {
+          $(".csvMessages-container").css("display", "block");
+          $(".csvMessages-container").css("color", "#d9534f");
+          $(".csvMessages").text(data.errs.join(" "));
+        } else {
+          $(".csvMessages-container").css("display", "block");
+          $(".csvMessages-container").css("color", "#5cb85c");
+          $(".csvMessages").text("Swimmers successfully added.");
+        }
       }
     });
   });
