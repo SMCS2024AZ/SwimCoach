@@ -10,9 +10,15 @@ const sessionPool = require("pg").Pool
 
 app.set("view engine", "ejs");
 
+const pool = new sessionPool({
+  connectionString: process.env.DATABASE_URL || process.env.LOCAL_DB,
+  ssl: {
+    rejectUnauthorized: true
+  }
+});
 const sessionConfig = {
   store: new pgSession({
-    conString:  process.env.DATABASE_URL || process.env.LOCAL_DB,
+    pool: pool,
     createTableIfMissing: true
   }),
   secret: process.env.SECRET,
