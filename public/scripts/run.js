@@ -15,6 +15,18 @@ $(document).ready(function() {
     timeElem.attr("class", "align-middle timer enabled");
     timeElem.attr("value", Date.now());
     $(this).prop("disabled", true);
+    $(".startAll").prop("disabled", true);
+  });
+
+  $(".startAll").click(function() {
+    $(".timer").each(function() {
+      $(this).attr("class", "align-middle timer enabled");
+      $(this).attr("value", Date.now());
+      $(".start").each(function() {
+        $(this).prop("disabled", true);
+      });
+    });
+    $(".startAll").prop("disabled", true);
   });
 
   // handle stopping
