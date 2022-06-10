@@ -81,7 +81,6 @@ $(document).ready(function() {
           if (results != null) {
             // for every result in current race category
             for (var j = 0; j < results.length; j++) {
-              console.log(timestamps[j]);
               buffer.push({
                 x: timestamps[j],
                 y: results[j]
@@ -93,7 +92,9 @@ $(document).ready(function() {
             label: names[i],
             data: buffer,
             borderColor: colors[i],
-            fill: false
+            fill: false,
+            pointRadius: 8,
+            hoverRadius: 7
           };
           dataset.push(data);
         }
@@ -109,7 +110,35 @@ $(document).ready(function() {
               }
             }
           },
-          legend: false
+          onClick(evt) {
+            var points = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true);
+            if (points.length > 0 && confirm("Are you sure?")) {
+              var point = points[0];
+              $.ajax({
+                url: "/statviewer",
+                type: "POST",
+                data: JSON.stringify({
+                  id: 3,
+                  swimmerId: parseInt($(".active.swimmer").attr("value").split(",")[1]),
+                  race: chart.data.datasets[point.datasetIndex].label.toLowerCase().replace(" ", ""),
+                  index: point.index + 1
+                }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function(data) {
+                  chart.data.datasets[point.datasetIndex].data.splice(point.index, 1);
+                  chart.update(data);
+                }
+              });
+            }
+          },
+          plugins: {
+            legends: {
+              labels: {
+                usePointStyle: true
+              }
+            }
+          }
         };
 	      chart.update();
       }

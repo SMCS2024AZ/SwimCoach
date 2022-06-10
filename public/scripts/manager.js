@@ -4,7 +4,7 @@ $(document).ready(function() {
     info: false,
     lengthChange: false,
     order: [[0, "asc"]],
-    pageLength: 8,
+    pageLength: 5,
     columnDefs: [
       {
         target: 3,
@@ -96,7 +96,6 @@ $(document).ready(function() {
             </ul>
           </div>`);
           $(this).children().eq(0).children().eq(2).children().each(function(index) {
-            //console.log($(this).text())
             if ($(this).text() == text.trim()) {
               $(this).children().eq(0).attr("class", "dropdown-item active swimmerGender");
             }
