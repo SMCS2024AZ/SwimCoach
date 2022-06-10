@@ -4,6 +4,16 @@ const db = require("../db");
 const ejs = require("ejs");
 const format = require("pg-format");
 
+function compare(a, b) {
+  if (a.name < b.name) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  return 0;
+}
+
 router.get("/", (req, res) => {
   db.query("SELECT * FROM swimmers WHERE age_group = '10 and under'",
   [],
@@ -11,7 +21,7 @@ router.get("/", (req, res) => {
     if (err) {
       return err;
     }
-    res.render("setup", { swimmers : result.rows });
+    res.render("setup", { swimmers : result.rows.sort(compare) });
   });
 });
 
@@ -22,7 +32,7 @@ router.post("/", (req, res) => {
     if (err) {
       return err;
     }
-    res.send(result.rows);
+    res.send(result.rows.sort(compare));
   });
 });
 

@@ -3,11 +3,21 @@ const router = express.Router();
 const db = require("../db");
 const format = require("pg-format");
 
+function compare(a, b) {
+  if (a.name < b.name) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  return 0;
+}
+
 router.get("/", (req, res) => {
   db.query("SELECT * FROM swimmers WHERE age_group = '10 and under'",
   [],
   (err, result) => {
-    res.render("statviewer", { swimmers: result.rows });
+    res.render("statviewer", { swimmers: result.rows.sort(compare) });
   });
 });
 
@@ -20,7 +30,7 @@ router.post("/", (req, res) => {
         if (err) {
           return err;
         }
-        res.send(result.rows);
+        res.send(result.rows.sort(compare));
       });
       break;
     case 2:

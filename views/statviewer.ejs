@@ -32,7 +32,7 @@
           <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
             Swimmer Name
           </button>
-          <ul class="dropdown-menu swimmers">
+          <ul class="dropdown-menu swimmers" style="max-height: 185px; overflow-y: scroll;">
             <% if (swimmers.length == 0) { %>
               <li><a class="dropdown-item disabled">No swimmers</a></li>
             <% } else { %>
