@@ -22,7 +22,11 @@ $(document).ready(function() {
           $(".checklist").append(`<div class="form-check pt-1"><label class="form-check-label text-muted" disabled><input class="form-check-input" type="checkbox" disabled\>No swimmers</label></div>`);
         } else {
           for (const swimmer of data) {
-            var check = `<li class="form-check pt-1" style="display: inline-block; width: 30%;  margin-right: -4px; margin-left: 4px;"><label class="form-check-label swimmer p-1"><input class="form-check-input" type="checkbox" name="swimmer" value="${swimmer.name},${swimmer.id}"\>${swimmer.name}</label></div>`;
+            var check = `<li class="form-check pt-1" style="display: inline-block; width: 12em; margin-right: 4px;">
+              <label class="form-check-label p-1">
+                <input class="form-check-input swimmer" type="checkbox" name="swimmer" value="${swimmer.name},${swimmer.id}">${swimmer.name}
+              </label>
+            </li>`;
             $(".checklist").append(check);
           }
         }

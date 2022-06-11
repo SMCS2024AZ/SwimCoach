@@ -62,9 +62,9 @@
                 </div>
               <% } else { %>
               <% swimmers.forEach(function(swimmer, i) { %>
-                <li class="form-check pt-1" style="display: inline-block; width: 30%;  margin-right: -4px;">
+                <li class="form-check pt-1" style="display: inline-block; width: 12em;">
                   <label class="form-check-label p-1">
-                    <input class="form-check-input swimmer" type="checkbox" name="swimmer" value="<%= swimmer.name + ',' + swimmer.id %>"> <%= swimmer.name %>
+                    <input class="form-check-input swimmer" type="checkbox" name="swimmer" value="<%= swimmer.name + ',' + swimmer.id %>"><%= swimmer.name %>
                   </label>
                 </li>
               <% })} %>

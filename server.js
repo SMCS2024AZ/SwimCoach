@@ -35,19 +35,23 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 const stopwatch = require("./routes/stopwatch");
-app.use("/stopwatch", stopwatch);
+app.use("/stopwatch", isAuthenticated, stopwatch);
 const statviewer = require("./routes/statviewer");
-app.use("/statviewer", statviewer);
+app.use("/statviewer", isAuthenticated, statviewer);
 const teammanager = require("./routes/teammanager");
-app.use("/teammanager", teammanager);
+app.use("/teammanager", isAuthenticated, teammanager);
+
+function isAuthenticated(req, res, next) {
+  if (req.session.userid) next();
+  else res.redirect("/");
+}
 
 // temp for testing
 const user = process.env.USERNAME;
 const pass = process.env.PASSWORD;
-var session;
 
 app.get("/", (req, res) => {
-  session = req.session;
+  var session = req.session;
   if (session.userid) {
     res.render("index");
   } else {
@@ -57,7 +61,7 @@ app.get("/", (req, res) => {
 
 app.post("/login", (req, res) => {
     if (req.body.user == user && req.body.pass == pass){
-      session = req.session;
+      var session = req.session;
       session.userid = req.body.user;
       req.session.message = "success";
     } else {
