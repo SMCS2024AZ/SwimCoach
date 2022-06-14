@@ -16,6 +16,8 @@ $(document).ready(function() {
     timeElem.attr("value", Date.now());
     $(this).prop("disabled", true);
     $(".startAll").prop("disabled", true);
+    $(".reset").attr("class", "btn btn-primary reset");
+    $(".reset").prop("disabled", false);
   });
 
   $(".startAll").click(function() {
@@ -27,12 +29,30 @@ $(document).ready(function() {
       });
     });
     $(".startAll").prop("disabled", true);
+    $(".reset").attr("class", "btn btn-primary reset");
+    $(".reset").prop("disabled", false);
+  });
+
+  $(".reset").click(function() {
+    $(".timer").each(function() {
+      $(this).attr("class", "align-middle timer stopped");
+      $(this).text("0.00");
+      $(".start").each(function() {
+        $(this).prop("disabled", false);
+      });
+      $(".done").attr("class", "btn btn-secondary done");
+      $(".done").prop("disabled", true);
+    });
+
+    $(".stop").each(function() {
+      $(this).prop("disabled", false);
+    });
   });
 
   // handle stopping
   $(".stop").click(function() {
     var timeElem = $(this).closest("td").prev();
-    timeElem.attr("class", "align-middle stopped");
+    timeElem.attr("class", "align-middle timer stopped");
     results.push({
       id: timeElem.closest("td").prevAll("input").val(),
       time: timeElem.text()
@@ -40,7 +60,7 @@ $(document).ready(function() {
     $(this).prop("disabled", true);
 
     // enabled done button if all watches are stopped
-    if ($(".timer").length == 0) {
+    if ($(".stopped").length == $(".timer").length) {
       $(".done").attr("class", "btn btn-primary done");
       $(".done").prop("disabled", false);
     }
