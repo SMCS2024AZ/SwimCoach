@@ -14,6 +14,7 @@ $(document).ready(function() {
     var timeElem = $(this).closest("td").prev();
     timeElem.attr("class", "align-middle timer enabled");
     timeElem.attr("value", Date.now());
+    $(this).next().prop("disabled", false);
     $(this).prop("disabled", true);
     $(".startAll").prop("disabled", true);
     $(".reset").attr("class", "btn btn-primary reset");
@@ -35,17 +36,20 @@ $(document).ready(function() {
 
   $(".reset").click(function() {
     $(".timer").each(function() {
-      $(this).attr("class", "align-middle timer stopped");
+      $(this).attr("class", "align-middle timer disabled");
       $(this).text("0.00");
-      $(".start").each(function() {
-        $(this).prop("disabled", false);
-      });
-      $(".done").attr("class", "btn btn-secondary done");
-      $(".done").prop("disabled", true);
     });
 
-    $(".stop").each(function() {
+    $(".start").each(function() {
       $(this).prop("disabled", false);
+    });
+    $(".done").attr("class", "btn btn-secondary done");
+    $(".done").prop("disabled", true);
+    $(".startAll").attr("class", "btn btn-primary startAll");
+    $(".startAll").prop("disabled", false);
+
+    $(".stop").each(function() {
+      $(this).prop("disabled", true);
     });
   });
 

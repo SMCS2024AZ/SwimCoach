@@ -4,8 +4,9 @@
       <h1>Stopwatch</h1>
     </div>
 
-    <div class="container d-flex justify-content-center">
+    <div class="text-center">
       <button class="btn btn-primary startAll">Start All</button>
+      <button class="btn btn-secondary reset" disabled>Reset</button>
     </div>
 
     <div class="container d-flex justify-content-center pt-2">
@@ -22,10 +23,10 @@
             <tr>
               <input type="hidden" class="swimmerID" value="<%= swimmer.id %>">
               <td class="align-middle"><%= swimmer.name %></td>
-              <td class="align-middle timer stopped">0.00</td>
+              <td class="align-middle timer disabled">0.00</td>
               <td class="align-middle">
                 <button class="btn btn-primary start">Start</button>
-                <button class="btn btn-primary stop">Stop</button>
+                <button class="btn btn-primary stop" disabled>Stop</button>
               </td>
             </tr>
           <% }) %>
@@ -33,9 +34,9 @@
       </table>
     </div>
 
-    <div class="text-center">
+    <div class="text-center pb-3">
       <button class="btn btn-secondary done" disabled>Done</button>
-      <button class="btn btn-secondary reset" disabled>Reset</button>
+      <a href="/" class="btn btn-primary">Cancel</a>
     </div>
   </div>
 </div>

@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  var text = [];
+  var ids = [];
+
   // change active dropdown
   $(".dropdown-item").click(function() {
     var type = $(this).attr("class").replace("dropdown-item ", "");
@@ -22,7 +25,7 @@ $(document).ready(function() {
           $(".checklist").append(`<div class="form-check pt-1"><label class="form-check-label text-muted" disabled><input class="form-check-input" type="checkbox" disabled\>No swimmers</label></div>`);
         } else {
           for (const swimmer of data) {
-            var check = `<li class="form-check pt-1" style="display: inline-block; width: 12em; margin-right: 4px;">
+            var check = `<li class="form-check pt-1">
               <label class="form-check-label p-1">
                 <input class="form-check-input swimmer" type="checkbox" name="swimmer" value="${swimmer.name},${swimmer.id}">${swimmer.name}
               </label>
@@ -55,17 +58,28 @@ $(document).ready(function() {
       $(".start").attr("class", "btn btn-secondary mt-3 start");
       $(".start").prop("disabled", true);
     }
+
+    var values = $(this).val().split(",");
+    if ($(this).is(":checked")) {
+      text.push(values[0]);
+      ids.push(values[1]);
+    } else {
+      var index = ids.indexOf(values[1]);
+      text.splice(index, 1);
+      ids.splice(index, 1);
+    }
+
+    $(".selected").text("Selected: " + text.join(", "));
   });
 
   // send race type and swimmers to server
   $(".start").click(function() {
     var race = $(".stroke.active").text() + $(".distance.active").text();
     var swimmers = [];
-    $("input[name=\"swimmer\"]:checked").each(function() {
-      var values = $(this).val().split(",");
+    $(".selected").text().substring(10).split(", ").forEach(function(name, index) {
       swimmers.push({
-        name: values[0],
-        id: parseInt(values[1])
+        name: name,
+        id: ids[index]
       });
     });
     $.ajax({
