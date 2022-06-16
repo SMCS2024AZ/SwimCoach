@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
   });
 });
 
-router.get("/run", (req, res) => {
+router.get("/run", (req, res) => { // draw run stopwatch page
   ejs.renderFile("views/run.ejs", req.query, (err, html) => {
     if (err) {
       return err;
@@ -45,8 +45,7 @@ router.get("/run", (req, res) => {
   });
 });
 
-router.post("/run", (req, res) => {
-  // Generate query string
+router.post("/run", (req, res) => { // add swimmer times to db
   var todayDate = new Date().toISOString();
   swimmerResults = req.body.results;
   swimmerResults.forEach((result) => {
