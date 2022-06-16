@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   switch(req.body.id) {
-    case 1:
+    case 1: // get list of swimmers of age group for dropdown
       db.query("SELECT * FROM swimmers WHERE age_group = $1",
       [req.body.group],
       (err, result) => {
@@ -33,7 +33,7 @@ router.post("/", (req, res) => {
         res.send(result.rows.sort(compare));
       });
       break;
-    case 2:
+    case 2: // get specific swimmer from id
       db.query("SELECT * FROM swimmers WHERE id = $1",
       [req.body.swimmer[1]],
       (err, result) => {
@@ -43,7 +43,7 @@ router.post("/", (req, res) => {
         res.send(result.rows[0]);
       });
       break;
-    case 3:
+    case 3: // delete stat
       var queryString = "";
       if (req.body.index == 1) {
         queryString = format("UPDATE swimmers SET %I = %I[%s:] WHERE id = %s",
