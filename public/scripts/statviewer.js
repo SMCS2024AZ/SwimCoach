@@ -110,7 +110,7 @@ $(document).ready(function() {
               }
             }
           },
-          onClick(evt) {
+          onClick(evt) { // delete stat from database
             var points = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true);
             if (points.length > 0 && confirm("Are you sure?")) {
               var point = points[0];
