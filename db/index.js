@@ -5,7 +5,7 @@ const client = new Client({
     ssl: { rejectUnauthorized: false }
 });
 
-/*
+/* Dev database connection obj
 const client = new Client({
     connectionString: process.env.LOCAL_DB,
     ssl: false
